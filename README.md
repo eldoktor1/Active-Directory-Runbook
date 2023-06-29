@@ -1,14 +1,18 @@
-Active Directory Runbook :file_folder: :computer: :bulb:
+# Active Directory Runbook 📁 💻 💡
+
 This README.md provides an overview of the Active Directory Runbook, which contains a series of steps to efficiently manage and set up a domain environment. The runbook covers tasks related to user and group management, file sharing, organizational unit (OU) creation, Group Policy Object (GPO) configuration, and system monitoring.
 
-Steps Covered:
-User and Group Management :busts_in_silhouette: - Learn how to create, modify, and delete user accounts and groups within Active Directory.
-File Sharing :file_folder: - Set up file sharing permissions and access control to facilitate efficient collaboration.
-Organizational Unit (OU) Creation :card_index_dividers: - Understand the process of creating organizational units to organize and manage Active Directory objects.
-Group Policy Object (GPO) Configuration :gear: - Configure GPOs to enforce security measures, manage user settings, and control system behavior.
-System Monitoring :chart_with_upwards_trend: - Implement monitoring strategies to ensure the stability and security of the domain environment.
-PowerShell Application Inspection :white_check_mark: - Utilize PowerShell to inspect users' installed applications and prevent unauthorized app installations.
-The Active Directory Runbook aims to streamline domain management, enhance security, and optimize user management processes. By following the outlined steps, you can ensure the efficient operation of your domain environment while maintaining robust security measures. Happy domain management! :rocket:
+## Steps Covered:
+
+1. User and Group Management 👥 - Learn how to create, modify, and delete user accounts and groups within Active Directory.
+2. File Sharing 📁 - Set up file sharing permissions and access control to facilitate efficient collaboration.
+3. Organizational Unit (OU) Creation 📇 - Understand the process of creating organizational units to organize and manage Active Directory objects.
+4. Group Policy Object (GPO) Configuration ⚙️ - Configure GPOs to enforce security measures, manage user settings, and control system behavior.
+5. System Monitoring 📈 - Implement monitoring strategies to ensure the stability and security of the domain environment.
+6. PowerShell Application Inspection ✅ - Utilize PowerShell to inspect users' installed applications and prevent unauthorized app installations.
+
+The Active Directory Runbook aims to streamline domain management, enhance security, and optimize user management processes. By following the outlined steps, you can ensure the efficient operation of your domain environment while maintaining robust security measures. Happy domain management! 🚀
+
 ![image](https://github.com/eldoktor1/Active-Directory-Runbook/assets/135300290/66cfedd2-d9c1-4531-855d-262fd009c610)
 ![image](https://github.com/eldoktor1/Active-Directory-Runbook/assets/135300290/e9b703d5-9b19-4c38-a989-bd35d67bd900)
 ![image](https://github.com/eldoktor1/Active-Directory-Runbook/assets/135300290/668ac41b-51b7-45e3-9df3-b537193a1ca8)
