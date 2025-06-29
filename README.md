@@ -33,37 +33,39 @@ Enter domain credentials when prompted.
 ---
 
 ### Step 2: Create a New User in Active Directory
-On the server, open **Active Directory Users and Computers**.  
+Log in to the domain controller or management workstation.
+
+Open the **Active Directory Users and Computers** console.  
 ![Step](Active-Directory-Runbook-Images/image6.png)
 
-Navigate to `contoso.com > Users`.  
+In the left pane, expand your domain (e.g., `contoso.com`) and click on the **Users** folder.  
 ![Step](Active-Directory-Runbook-Images/image7.png)
 
-Right-click the Users folder and select `New > User`.  
+Right-click the **Users** folder and choose **New > User**.  
 ![Step](Active-Directory-Runbook-Images/image8.png)
 
-Enter the user's full name and username.  
+Enter the user’s first name, last name, and a unique username (e.g., tflenderson).  
 ![Step](Active-Directory-Runbook-Images/image9.png)
 
-Set the password and configure user must change password options.  
+Set an initial password and configure password policies such as requiring change on next login.  
 ![Step](Active-Directory-Runbook-Images/image10.png)
 
-Click Finish to complete user creation.  
+Click **Finish** to create the account.  
 ![Step](Active-Directory-Runbook-Images/image11.png)
 
 ---
 
 ### Step 3: Create a Security Group
-In Computer Management, expand Local Users and Groups > Groups.  
+Open the **Computer Management** console.  
 ![Step](Active-Directory-Runbook-Images/image12.png)
 
-Right-click Groups and select New Group.  
+Expand **System Tools > Local Users and Groups > Groups**.  
 ![Step](Active-Directory-Runbook-Images/image13.png)
 
-Name the group (e.g., HR).  
+Right-click **Groups** and choose **New Group**.  
 ![Step](Active-Directory-Runbook-Images/image14.png)
 
-Add the new user to the group.  
+Enter a group name (e.g., `HR`), and add the new user created in Step 2 by clicking **Add...**  
 ![Step](Active-Directory-Runbook-Images/image15.png)
 
 ---
@@ -179,75 +181,90 @@ Get-Service |
 ---
 
 ### Step 10: Map the HR Share via GPO Script
-Go to the Logon script settings in GPO:
+To automatically map the HR share for users when they log in, configure a logon script through Group Policy.
 
-1. Open the GPO editor and go to User Configuration > Windows Settings > Scripts (Logon/Logoff).  
+1. Open Group Policy Management Editor.
+2. Navigate to: **User Configuration > Windows Settings > Scripts (Logon/Logoff)**.  
 ![Step](Active-Directory-Runbook-Images/image40.png)
 
-2. Double-click Logon and click Add.  
+3. Double-click **Logon**, then click **Add**.  
 ![Step](Active-Directory-Runbook-Images/image41.png)
 
-3. Click Browse and select the `.bat` script to map the HR share.  
+4. Click **Browse...** and copy your `.bat` script that maps the share (e.g., `net use H: \servername\HR`).  
 ![Step](Active-Directory-Runbook-Images/image42.png)
 
-4. Confirm the script is listed.  
+5. Select the script and click **OK**.  
 ![Step](Active-Directory-Runbook-Images/image43.png)
 
-5. Apply the changes and exit the editor.  
+6. Confirm the script is listed and click **Apply** to save.  
 ![Step](Active-Directory-Runbook-Images/image44.png)
 
-6. The script should now run when the user logs in.  
+7. Close the dialog and return to Group Policy Management.  
 ![Step](Active-Directory-Runbook-Images/image45.png)
 
-7. Verify success in the resulting script summary.  
-![Step](Active-Directory-Runbook-Images/image46.png)
+8. The mapped drive will be created for the user at next login.  
+![Step](Active-Directory-Runbook-Images/image46.png))
 
 ---
 
 ### Step 11: Disable Run Menu via Policy
-1. In GPO Editor, go to User Configuration > Administrative Templates > Start Menu and Taskbar.  
+To restrict access to the Run command for users, configure the appropriate policy setting in Group Policy.
+
+1. In Group Policy Management Editor, navigate to:
+   **User Configuration > Administrative Templates > Start Menu and Taskbar**  
 ![Step](Active-Directory-Runbook-Images/image47.png)
 
-2. Double-click “Remove Run menu from Start Menu”.  
+2. Locate and double-click **Remove Run menu from Start Menu**.  
 ![Step](Active-Directory-Runbook-Images/image48.png)
 
-3. Set the policy to Enabled and click OK.  
+3. In the policy settings window, set the option to **Enabled**.  
 ![Step](Active-Directory-Runbook-Images/image49.png)
 
-4. The policy should now reflect as Enabled.  
+4. Click **OK** to apply the setting and close the dialog.  
 ![Step](Active-Directory-Runbook-Images/image50.png)
 
 ---
 
 ### Step 12: Final GPO and OU Verification
-1. Use Group Policy Management to review policy links and inheritance.  
+Review the overall GPO configuration and ensure policies are linked to the correct OU.
+
+1. Open Group Policy Management and verify GPO linkage under the OU.  
 ![Step](Active-Directory-Runbook-Images/image51.png)
 
-2. Verify the correct OU structure and policy application.  
+2. Ensure that the correct users, computers, and groups reside in the OU and inherit the intended settings.  
 ![Step](Active-Directory-Runbook-Images/image52.png)
 
 ---
 
 ### Step 13: Additional Screens and Validation Logs
-These screenshots validate various final outcomes:
+These screenshots provide final confirmation of task execution and expected outcomes.
 
-- GPO link confirmation
-- Logon script execution success
-- Policy application results
-- Folder mapping on login
-- OU structure accuracy
-- Successful login timestamps
-- Service monitoring outputs
-
-Each image represents the output or screen state following the actions configured earlier.
-
+GPO link confirmation:  
 ![Step](Active-Directory-Runbook-Images/image53.png)
+
+Logon script execution success:  
 ![Step](Active-Directory-Runbook-Images/image54.png)
+
+Policy application results:  
 ![Step](Active-Directory-Runbook-Images/image55.png)
+
+Folder mapping on login:  
 ![Step](Active-Directory-Runbook-Images/image56.png)
+
+OU structure accuracy:  
 ![Step](Active-Directory-Runbook-Images/image57.png)
+
+Successful login timestamps:  
 ![Step](Active-Directory-Runbook-Images/image58.png)
+
+Service monitoring output - part 1:  
 ![Step](Active-Directory-Runbook-Images/image59.png)
+
+Service monitoring output - part 2:  
 ![Step](Active-Directory-Runbook-Images/image60.png)
+
+Final script execution:  
 ![Step](Active-Directory-Runbook-Images/image61.png)
+
+Overall configuration summary:  
 ![Step](Active-Directory-Runbook-Images/image62.png)
