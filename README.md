@@ -6,127 +6,166 @@
 
 ---
 
-This runbook outlines a series of steps to set up and manage a Windows domain environment. It includes procedures for domain joining, user and group setup, resource sharing, GPO configuration, and system monitoring.
+This runbook outlines a series of tasks related to user and group management, file sharing, OU creation, GPO configuration, and system monitoring for a Windows domain environment.
 
 ---
 
-## 🖥️ Step 1: Join the Computer to the Domain
-1. Log in as `administrator` and open **System Properties**.
-2. Click `Change settings > Change` to modify computer name/domain.
-3. Select `Domain`, enter `contoso.com`, and authenticate.
-4. Restart the computer after confirmation.
+## 🧩 Full Setup Process
 
-![Step 1](Active-Directory-Runbook-Images/image1.png)
-![Step 1 Confirmation](Active-Directory-Runbook-Images/image2.png)
+### Join the Computer to the Domain
+Log in to the computer using the username `administrator` and the password `Pa$$w0rd`.
 
----
+Open the Control Panel and navigate to System and Security > System.  
+![Step 1 - Control Panel](Active-Directory-Runbook-Images/image1.png)
 
-## 👤 Step 2: Create a User for the New Hire
-1. On the server, open **Active Directory Users and Computers**.
-2. Navigate to `contoso.com > Users`, right-click > `New > User`.
-3. Fill out user info, set a password, and finish the wizard.
+Click on “Change settings” next to the computer name.  
+![Step 1 - Change settings](Active-Directory-Runbook-Images/image2.png)
 
-![User Creation 1](Active-Directory-Runbook-Images/image3.png)
-![User Creation 2](Active-Directory-Runbook-Images/image4.png)
-![User Creation 3](Active-Directory-Runbook-Images/image5.png)
-![User Created](Active-Directory-Runbook-Images/image6.png)
+In the System Properties window, click on the “Change” button.  
+![Step 1 - System Properties](Active-Directory-Runbook-Images/image3.png)
 
----
+Select the “Domain” option, enter `contoso.com`, and click “OK”.  
+![Step 1 - Enter Domain](Active-Directory-Runbook-Images/image4.png)
 
-## 👥 Step 3: Create a Group with the Department Name
-1. In ADUC, right-click `Users` > `New > Group`.
-2. Enter group name (e.g., HR) and confirm.
-3. Open group > `Members > Add`, include the new user.
+Provide the domain administrator credentials when prompted.  
+![Step 1 - Credentials](Active-Directory-Runbook-Images/image5.png)
 
-![Group Creation](Active-Directory-Runbook-Images/image7.png)
-![Add to Group](Active-Directory-Runbook-Images/image8.png)
-![Group Members](Active-Directory-Runbook-Images/image9.png)
+Restart the computer.  
+![Step 1 - Restart](Active-Directory-Runbook-Images/image6.png)
 
 ---
 
-## 📁 Step 4: Create a Share on the Server
-1. Create a folder for the department (e.g., HR).
-2. Right-click > `Properties > Sharing > Advanced Sharing`.
-3. Set share name and permissions for the HR group.
-4. Place a `test.txt` file inside for validation.
+### Create a User for the New Hire
+Log in to the server and open **Active Directory Users and Computers**.  
+![Step 2 - ADUC Search](Active-Directory-Runbook-Images/image7.png)
 
-![Share Setup](Active-Directory-Runbook-Images/image10.png)
-![Permissions](Active-Directory-Runbook-Images/image11.png)
-![Shared Folder](Active-Directory-Runbook-Images/image12.png)
+Click `contoso.com`, then the `Users` folder.  
+![Step 2 - Domain Selected](Active-Directory-Runbook-Images/image8.png)
 
----
+Create a user for Toby Flenderson.  
+![Step 2 - Users Folder](Active-Directory-Runbook-Images/image9.png)
 
-## 🗂️ Step 5: Create an Organizational Unit (OU)
-1. In ADUC, right-click the domain > `New > Organizational Unit`.
-2. Name the OU (e.g., HR) and click OK.
-3. Drag the user and group into the OU.
+Enter account details and a password.  
+![Step 2 - Account Details](Active-Directory-Runbook-Images/image10.png)
 
-![OU Creation](Active-Directory-Runbook-Images/image13.png)
-![Move Objects](Active-Directory-Runbook-Images/image14.png)
-![OU Contents](Active-Directory-Runbook-Images/image15.png)
+Click “Finish”.  
+![Step 2 - Finish](Active-Directory-Runbook-Images/image11.png)
 
 ---
 
-## 🛡️ Step 6: Configure Group Policy
-### A. Display a Startup Message
-1. Open GPMC and create/edit a GPO linked to the OU.
-2. Navigate to `Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options`.
-3. Enable UAC policy.
+### Create a Group for the Department
+Open `Computer Management > Local Users and Groups > Groups`.  
+![Step 3 - Local Users and Groups](Active-Directory-Runbook-Images/image12.png)
 
-![Startup Message Config](Active-Directory-Runbook-Images/image16.png)
+Right-click to create a new group named `HR`.  
+![Step 3 - New Group](Active-Directory-Runbook-Images/image13.png)
 
-### B. Restrict Command Prompt
-Navigate to:  
-`User Configuration > Administrative Templates > System > Prevent access to command prompt`
+Set the group name and confirm.  
+![Step 3 - Group Name](Active-Directory-Runbook-Images/image14.png)
 
-![Block CMD](Active-Directory-Runbook-Images/image17.png)
-
-### C. Add a Logon Script
-1. Navigate to: `User Configuration > Windows Settings > Scripts (Logon/Logoff)`.
-2. Add a `.bat` file to map the HR share.
-
-![Logon Script 1](Active-Directory-Runbook-Images/image18.png)
-![Logon Script 2](Active-Directory-Runbook-Images/image19.png)
-
-### D. Disable the Run Command
-Navigate to:  
-`User Configuration > Administrative Templates > Start Menu and Taskbar > Remove Run menu`
-
-![Disable Run](Active-Directory-Runbook-Images/image20.png)
+Open the group and add the new user.  
+![Step 3 - Group Properties](Active-Directory-Runbook-Images/image15.png)  
+![Step 3 - Add User](Active-Directory-Runbook-Images/image16.png)  
+![Step 3 - Confirm Add](Active-Directory-Runbook-Images/image17.png)
 
 ---
 
-## 📊 Step 7: Check Last Login via Event Viewer
-1. Open Event Viewer.
-2. Go to `Windows Logs > Security`.
-3. Filter for `4624` event ID for successful logons.
+### Create a Department Share
+Open File Explorer and navigate to a suitable location.  
+![Step 4 - Explorer](Active-Directory-Runbook-Images/image18.png)  
+![Step 4 - Location](Active-Directory-Runbook-Images/image19.png)
 
-![Event Viewer](Active-Directory-Runbook-Images/image21.png)
+Right-click the folder > `Properties > Sharing > Advanced Sharing`.  
+![Step 4 - Properties](Active-Directory-Runbook-Images/image20.png)  
+![Step 4 - Sharing Tab](Active-Directory-Runbook-Images/image21.png)
+
+Assign the share name and permissions.  
+![Step 4 - Share Name](Active-Directory-Runbook-Images/image22.png)  
+![Step 4 - Permissions](Active-Directory-Runbook-Images/image23.png)  
+![Step 4 - Share Created](Active-Directory-Runbook-Images/image24.png)
+
+Create `test.txt` inside the share.  
+![Step 4 - Test File](Active-Directory-Runbook-Images/image25.png)
 
 ---
 
-## 💻 Step 8: Use PowerShell to Check Latest Installed Program
-Run this in PowerShell:
+### Create an Organizational Unit (OU)
+Open ADUC.  
+![Step 5 - ADUC](Active-Directory-Runbook-Images/image26.png)
+
+Right-click the domain > `New > Organizational Unit`.  
+![Step 5 - New OU](Active-Directory-Runbook-Images/image27.png)  
+![Step 5 - OU Name](Active-Directory-Runbook-Images/image28.png)
+
+Move user, group, and computer objects into the OU.  
+![Step 5 - Move Objects](Active-Directory-Runbook-Images/image29.png)
+
+Create or link a GPO to the OU.  
+![Step 5 - GPO Settings](Active-Directory-Runbook-Images/image30.png)  
+![Step 5 - Link GPO](Active-Directory-Runbook-Images/image31.png)  
+![Step 5 - Confirm GPO](Active-Directory-Runbook-Images/image32.png)
+
+---
+
+### Apply Group Policy Configuration
+#### Display a Startup Message
+Open GPMC.  
+![Step 6 - Open GPMC](Active-Directory-Runbook-Images/image33.png)
+
+Navigate to `Computer Configuration > Windows Settings > Security Options`.  
+![Step 6 - Security Options](Active-Directory-Runbook-Images/image34.png)
+
+Enable UAC.  
+![Step 6 - UAC Enabled](Active-Directory-Runbook-Images/image35.png)  
+![Step 6 - Apply GPO](Active-Directory-Runbook-Images/image36.png)
+
+#### Restrict CMD
+Go to `User Configuration > Administrative Templates > System`.  
+![Step 6 - Admin Templates](Active-Directory-Runbook-Images/image37.png)  
+![Step 6 - Block CMD](Active-Directory-Runbook-Images/image38.png)
+
+#### Add Logon Script
+Navigate to `User Configuration > Scripts (Logon/Logoff)` > `Logon`.  
+![Step 6 - Logon Script](Active-Directory-Runbook-Images/image39.png)
+
+Click `Show Files`, add `.bat` file.  
+![Step 6 - Script Folder](Active-Directory-Runbook-Images/image40.png)
+
+Click `Add` and choose script.  
+![Step 6 - Add Script](Active-Directory-Runbook-Images/image41.png)
+
+#### Disable the Run Menu
+Go to `User Configuration > Administrative Templates > Start Menu and Taskbar`.  
+![Step 6 - Start Menu Settings](Active-Directory-Runbook-Images/image42.png)  
+![Step 6 - Remove Run](Active-Directory-Runbook-Images/image43.png)
+
+---
+
+### Check Login History
+Open Event Viewer > `Windows Logs > Security`.  
+![Step 7 - Event Viewer](Active-Directory-Runbook-Images/image44.png)  
+![Step 7 - Successful Login](Active-Directory-Runbook-Images/image45.png)
+
+---
+
+### Check Latest Installed Program
 ```powershell
 Get-WmiObject -Class Win32_Product |
   Sort-Object InstallDate -Descending |
   Select-Object Name, Version, InstallDate -First 1
 ```
-
-![Installed Programs](Active-Directory-Runbook-Images/image22.png)
+![Step 8 - Installed Program](Active-Directory-Runbook-Images/image46.png)
 
 ---
 
-## ⚙️ Step 9: List Running Services with PowerShell
-Run the following script:
+### List Running Services
 ```powershell
 Get-Service |
   Where-Object {$_.Status -eq "Running"} |
   Out-File "running_services.txt"
 ```
-
-![Running Services](Active-Directory-Runbook-Images/image23.png)
+![Step 9 - Running Services](Active-Directory-Runbook-Images/image47.png)
 
 ---
 
-By following this runbook, domain administrators can confidently onboard users, delegate permissions, enforce policy, and maintain secure, structured network operations.
+This concludes the full setup. The steps above ensure domain security, efficient onboarding, and proper system monitoring.
