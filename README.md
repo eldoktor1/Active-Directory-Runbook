@@ -60,7 +60,7 @@ You should now see the newly created user listed in the **Users** container.
 ---
 
 ### Step 3: Create a Security Group
-To manage permissions using security groups, create a new group in Active Directory.
+Before applying file-level permissions, create a dedicated security group in Active Directory that represents the department (e.g., HR).
 
 Open the **Active Directory Users and Computers** console.  
 ![Open ADUC](Active-Directory-Runbook-Images/image12.png)
@@ -71,31 +71,35 @@ Navigate to the **Users** container under your domain.
 Right-click **Users**, choose **New > Group**.  
 ![Create New Group Dialog](Active-Directory-Runbook-Images/image14.png)
 
-Enter the group name (e.g., `HR`) and ensure the group scope is set to **Global**, and type is **Security**.  
+Enter a name for the group (e.g., `HR`), and ensure **Group scope** is set to **Global** and **Group type** is **Security**.  
 ![Group Settings and Confirmation](Active-Directory-Runbook-Images/image15.png)
+
+After the group is created, double-click it, open the **Members** tab, and click **Add** to include the user you created in Step 2. This ensures the user inherits the permissions assigned to the group.
 
 Once created, double-click the new group, go to the **Members** tab, and click **Add** to include the user you created in Step 2.
 
 ---
 
 ### Step 4: Create a Network Share
-On the file server, create a new folder.  
-![Step](Active-Directory-Runbook-Images/image16.png)
+Now that the group is created, configure a shared folder and grant that group access.
 
-Right-click the folder and go to Properties.  
-![Step](Active-Directory-Runbook-Images/image17.png)
+On the file server, create a new folder where shared files will be stored.  
+![Create Folder](Active-Directory-Runbook-Images/image16.png)
 
-Go to the Sharing tab and click Advanced Sharing.  
-![Step](Active-Directory-Runbook-Images/image18.png)
+Right-click the folder and select **Properties**.  
+![Open Properties](Active-Directory-Runbook-Images/image17.png)
 
-Enable sharing and set a name.  
-![Step](Active-Directory-Runbook-Images/image19.png)
+Go to the **Sharing** tab and click **Advanced Sharing...**  
+![Advanced Sharing Tab](Active-Directory-Runbook-Images/image18.png)
 
-Click Permissions and grant access to the HR group.  
-![Step](Active-Directory-Runbook-Images/image20.png)
+Check **Share this folder**, and assign a share name (e.g., HRShare).  
+![Name the Share](Active-Directory-Runbook-Images/image19.png)
 
-Create a test file in the share to verify access.  
-![Step](Active-Directory-Runbook-Images/image21.png)
+Click **Permissions**, remove "Everyone", and add the HR group. Set the appropriate permissions (e.g., Read or Full Control).  
+![Set Group Permissions](Active-Directory-Runbook-Images/image20.png)
+
+Create a test file inside the shared folder to confirm users will see expected content.  
+![Test File in Share](Active-Directory-Runbook-Images/image21.png)
 
 ---
 
@@ -111,6 +115,8 @@ Name the OU appropriately and click OK.
 
 Move the user and group objects into the new OU.  
 ![Step](Active-Directory-Runbook-Images/image25.png)
+
+You should now see the HR group and the new user listed inside the newly created OU.
 
 ---
 
