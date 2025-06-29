@@ -6,127 +6,127 @@
 
 ---
 
-The following runbook outlines a series of steps to be executed in order to perform various tasks related to user and group management, file sharing, organizational unit (OU) creation, Group Policy Object (GPO) configuration, and system monitoring. These steps are aimed at setting up and managing a domain environment, ensuring security measures are in place, and enabling efficient user management.
+This runbook outlines a series of steps to set up and manage a Windows domain environment. It includes procedures for domain joining, user and group setup, resource sharing, GPO configuration, and system monitoring.
 
 ---
 
 ## 🖥️ Step 1: Join the Computer to the Domain
-1. Log in as `administrator` and navigate to `System > About > Rename this PC (advanced)`.
-2. Click "Change" to update the domain membership.
-3. Enter `contoso.com` and provide credentials.
-4. Restart the system.
+1. Log in as `administrator` and open **System Properties**.
+2. Click `Change settings > Change` to modify computer name/domain.
+3. Select `Domain`, enter `contoso.com`, and authenticate.
+4. Restart the computer after confirmation.
 
-![Step 1a](Active-Directory-Runbook-Images/image3.png)  
-![Step 1b](Active-Directory-Runbook-Images/image4.png)  
-![Step 1c](Active-Directory-Runbook-Images/image5.png)  
-![Step 1d](Active-Directory-Runbook-Images/image6.png)
+![Step 1](Active-Directory-Runbook-Images/image1.png)
+![Step 1 Confirmation](Active-Directory-Runbook-Images/image2.png)
 
 ---
 
 ## 👤 Step 2: Create a User for the New Hire
-1. Open **Active Directory Users and Computers**.
-2. Go to `contoso.com > Users`, right-click > `New > User`.
-3. Fill out the new user form.
-4. Set password options and click `Finish`.
+1. On the server, open **Active Directory Users and Computers**.
+2. Navigate to `contoso.com > Users`, right-click > `New > User`.
+3. Fill out user info, set a password, and finish the wizard.
 
-![Step 2a](Active-Directory-Runbook-Images/image7.png)  
-![Step 2b](Active-Directory-Runbook-Images/image8.png)  
-![Step 2c](Active-Directory-Runbook-Images/image9.png)  
-![Step 2d](Active-Directory-Runbook-Images/image10.png)
+![User Creation 1](Active-Directory-Runbook-Images/image3.png)
+![User Creation 2](Active-Directory-Runbook-Images/image4.png)
+![User Creation 3](Active-Directory-Runbook-Images/image5.png)
+![User Created](Active-Directory-Runbook-Images/image6.png)
 
 ---
 
 ## 👥 Step 3: Create a Group with the Department Name
 1. In ADUC, right-click `Users` > `New > Group`.
-2. Name the group `HR`.
-3. Open the group, click `Members > Add`, and select the new user.
+2. Enter group name (e.g., HR) and confirm.
+3. Open group > `Members > Add`, include the new user.
 
-![Step 3a](Active-Directory-Runbook-Images/image11.png)  
-![Step 3b](Active-Directory-Runbook-Images/image12.png)
+![Group Creation](Active-Directory-Runbook-Images/image7.png)
+![Add to Group](Active-Directory-Runbook-Images/image8.png)
+![Group Members](Active-Directory-Runbook-Images/image9.png)
 
 ---
 
 ## 📁 Step 4: Create a Share on the Server
-1. On the server, create a folder.
+1. Create a folder for the department (e.g., HR).
 2. Right-click > `Properties > Sharing > Advanced Sharing`.
-3. Set permissions for the `HR` group.
-4. Create a test file in the share.
+3. Set share name and permissions for the HR group.
+4. Place a `test.txt` file inside for validation.
 
-![Step 4a](Active-Directory-Runbook-Images/image13.png)  
-![Step 4b](Active-Directory-Runbook-Images/image14.png)  
-![Step 4c](Active-Directory-Runbook-Images/image15.png)
+![Share Setup](Active-Directory-Runbook-Images/image10.png)
+![Permissions](Active-Directory-Runbook-Images/image11.png)
+![Shared Folder](Active-Directory-Runbook-Images/image12.png)
 
 ---
 
 ## 🗂️ Step 5: Create an Organizational Unit (OU)
-1. In ADUC, right-click domain > `New > Organizational Unit`.
-2. Name the OU `HR`, click OK.
-3. Move user and group into the OU.
+1. In ADUC, right-click the domain > `New > Organizational Unit`.
+2. Name the OU (e.g., HR) and click OK.
+3. Drag the user and group into the OU.
 
-![Step 5a](Active-Directory-Runbook-Images/image16.png)  
-![Step 5b](Active-Directory-Runbook-Images/image17.png)
+![OU Creation](Active-Directory-Runbook-Images/image13.png)
+![Move Objects](Active-Directory-Runbook-Images/image14.png)
+![OU Contents](Active-Directory-Runbook-Images/image15.png)
 
 ---
 
 ## 🛡️ Step 6: Configure Group Policy
 ### A. Display a Startup Message
-1. Open GPMC.
-2. Create/Edit GPO linked to `HR` OU.
-3. Navigate to `Computer Configuration > Policies > Windows Settings > Security Options`.
-4. Enable UAC policy.
+1. Open GPMC and create/edit a GPO linked to the OU.
+2. Navigate to `Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options`.
+3. Enable UAC policy.
 
-![Step 6a](Active-Directory-Runbook-Images/image18.png)  
-![Step 6b](Active-Directory-Runbook-Images/image19.png)
+![Startup Message Config](Active-Directory-Runbook-Images/image16.png)
 
 ### B. Restrict Command Prompt
 Navigate to:  
-`User Configuration > Policies > Administrative Templates > System > Prevent access to command prompt`
+`User Configuration > Administrative Templates > System > Prevent access to command prompt`
 
-![Step 6c](Active-Directory-Runbook-Images/image20.png)
+![Block CMD](Active-Directory-Runbook-Images/image17.png)
 
 ### C. Add a Logon Script
-1. Go to `User Configuration > Windows Settings > Scripts (Logon/Logoff)`.
-2. Add a `.bat` file to map the shared drive.
+1. Navigate to: `User Configuration > Windows Settings > Scripts (Logon/Logoff)`.
+2. Add a `.bat` file to map the HR share.
 
-![Step 6d](Active-Directory-Runbook-Images/image21.png)  
-![Step 6e](Active-Directory-Runbook-Images/image22.png)
+![Logon Script 1](Active-Directory-Runbook-Images/image18.png)
+![Logon Script 2](Active-Directory-Runbook-Images/image19.png)
 
-### D. Disable Run Menu
+### D. Disable the Run Command
+Navigate to:  
 `User Configuration > Administrative Templates > Start Menu and Taskbar > Remove Run menu`
 
-![Step 6f](Active-Directory-Runbook-Images/image23.png)
+![Disable Run](Active-Directory-Runbook-Images/image20.png)
 
 ---
 
 ## 📊 Step 7: Check Last Login via Event Viewer
 1. Open Event Viewer.
-2. Navigate to `Windows Logs > Security`.
-3. Filter for successful logons for the new user.
+2. Go to `Windows Logs > Security`.
+3. Filter for `4624` event ID for successful logons.
 
-![Step 7](Active-Directory-Runbook-Images/image24.png)
+![Event Viewer](Active-Directory-Runbook-Images/image21.png)
 
 ---
 
 ## 💻 Step 8: Use PowerShell to Check Latest Installed Program
+Run this in PowerShell:
 ```powershell
 Get-WmiObject -Class Win32_Product |
   Sort-Object InstallDate -Descending |
   Select-Object Name, Version, InstallDate -First 1
 ```
 
-![Step 8](Active-Directory-Runbook-Images/image25.png)
+![Installed Programs](Active-Directory-Runbook-Images/image22.png)
 
 ---
 
 ## ⚙️ Step 9: List Running Services with PowerShell
+Run the following script:
 ```powershell
 Get-Service |
   Where-Object {$_.Status -eq "Running"} |
   Out-File "running_services.txt"
 ```
 
-![Step 9](Active-Directory-Runbook-Images/image26.png)
+![Running Services](Active-Directory-Runbook-Images/image23.png)
 
 ---
 
-By following these steps, the runbook ensures secure onboarding, proper group and file access, centralized configuration management, and ongoing monitoring of a Windows domain environment.
+By following this runbook, domain administrators can confidently onboard users, delegate permissions, enforce policy, and maintain secure, structured network operations.
