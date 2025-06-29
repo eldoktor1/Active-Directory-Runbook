@@ -12,11 +12,11 @@
 
 ![image2](Active-Directory-Runbook-Images/image2.png)
 
-3. Click Change settings.
+3. Click on Change settings.
 
 ![image3](Active-Directory-Runbook-Images/image3.png)
 
-4. Click Change.
+4. Click on Change.
 
 ![image4](Active-Directory-Runbook-Images/image4.png)
 
@@ -72,15 +72,15 @@
 
 ![image17](Active-Directory-Runbook-Images/image17.png)
 
-18. Go to the Sharing tab > Advanced Sharing.
+18. Click on the 'Share' button under the Sharing tab.
 
 ![image18](Active-Directory-Runbook-Images/image18.png)
 
-19. Check "Share this folder" and name it "HRShare."
+19. In the 'Network access' window, click on the drop-down arrow and select 'HR', then click 'Add'.
 
 ![image19](Active-Directory-Runbook-Images/image19.png)
 
-20. Click Permissions.
+20. Under Permission Level, make sure HR is set to 'Read/Write', then click 'Share'.
 
 ![image20](Active-Directory-Runbook-Images/image20.png)
 
@@ -110,21 +110,21 @@
 
 ![image27](Active-Directory-Runbook-Images/image27.png)
 
-27. Go to Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options.
+27. Display a message during computer startup, prohibiting unauthorized program installations. Go to Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options.
 
-28. Enable interactive logon message.
+28. Enable 'Interactive logon: Message text for users attempting to log on' and 'Interactive logon: Message title for users attempting to log on'.
 
 ![image28](Active-Directory-Runbook-Images/image28.png)
 
-29. Navigate to User Configuration > Administrative Templates > System.
+29. Prevent users from accessing command prompt. Navigate to User Configuration > Administrative Templates > System.
 
 ![image29](Active-Directory-Runbook-Images/image29.png)
 
-30. Enable "Prevent access to command prompt."
+30. Enable 'Prevent access to the command prompt' and select 'Yes' under 'Disable the command prompt script processing also?'
 
 ![image30](Active-Directory-Runbook-Images/image30.png)
 
-31. Go to User Configuration > Windows Settings > Scripts > Logon.
+31. Map the HR share using logon script. Go to User Configuration > Windows Settings > Scripts > Logon.
 
 ![image31](Active-Directory-Runbook-Images/image31.png)
 
@@ -137,7 +137,7 @@ net use H: \\servername\HR
 
 ![image33](Active-Directory-Runbook-Images/image33.png)
 
-33. Navigate to User Configuration > Administrative Templates > Start Menu and Taskbar.
+33. Remove Run menu. Navigate to User Configuration > Administrative Templates > Start Menu and Taskbar.
 
 ![image34](Active-Directory-Runbook-Images/image34.png)
 
@@ -153,7 +153,7 @@ net use H: \\servername\HR
 
 ![image37](Active-Directory-Runbook-Images/image37.png)
 
-37. Open PowerShell and run:
+37. Check most recently installed software:
 ```powershell
 Get-WmiObject -Class Win32_Product |
 Sort-Object InstallDate -Descending |
@@ -162,7 +162,7 @@ Select-Object Name, Version, InstallDate -First 1
 
 ![image38](Active-Directory-Runbook-Images/image38.png)
 
-38. To check running services, run:
+38. Output all running services to a file:
 ```powershell
 Get-Service |
 Where-Object {$_.Status -eq "Running"} |
