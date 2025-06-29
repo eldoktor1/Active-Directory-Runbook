@@ -12,159 +12,164 @@ This runbook outlines a series of tasks related to user and group management, fi
 
 ## 🧩 Full Setup Process
 
-### Join the Computer to the Domain
-Log in to the computer using the username `administrator` and the password `Pa$$w0rd`.
+### Step 1: Join the Computer to the Domain
+Log in using the local administrator account (`administrator` / `Pa$$w0rd`). Open Control Panel > System and Security > System. Click "Change settings" to open System Properties. In the Computer Name tab, click "Change...", select "Domain", and type `contoso.com`. When prompted, enter domain credentials. Once successful, restart the computer to apply the domain join.
 
-Open the Control Panel and navigate to System and Security > System.  
-![Step 1 - Control Panel](Active-Directory-Runbook-Images/image1.png)
-
-Click on “Change settings” next to the computer name.  
-![Step 1 - Change settings](Active-Directory-Runbook-Images/image2.png)
-
-In the System Properties window, click on the “Change” button.  
-![Step 1 - System Properties](Active-Directory-Runbook-Images/image3.png)
-
-Select the “Domain” option, enter `contoso.com`, and click “OK”.  
-![Step 1 - Enter Domain](Active-Directory-Runbook-Images/image4.png)
-
-Provide the domain administrator credentials when prompted.  
-![Step 1 - Credentials](Active-Directory-Runbook-Images/image5.png)
-
-Restart the computer.  
-![Step 1 - Restart](Active-Directory-Runbook-Images/image6.png)
+![Step](Active-Directory-Runbook-Images/image1.png)  
+![Step](Active-Directory-Runbook-Images/image2.png)  
+![Step](Active-Directory-Runbook-Images/image3.png)  
+![Step](Active-Directory-Runbook-Images/image4.png)  
+![Step](Active-Directory-Runbook-Images/image5.png)
 
 ---
 
-### Create a User for the New Hire
-Log in to the server and open **Active Directory Users and Computers**.  
-![Step 2 - ADUC Search](Active-Directory-Runbook-Images/image7.png)
+### Step 2: Create a New User in Active Directory
+On the server, open **Active Directory Users and Computers**. Navigate to `contoso.com > Users`, right-click the folder, and select `New > User`. Fill in the user's full name, username, and password settings. Complete the wizard.
 
-Click `contoso.com`, then the `Users` folder.  
-![Step 2 - Domain Selected](Active-Directory-Runbook-Images/image8.png)
-
-Create a user for Toby Flenderson.  
-![Step 2 - Users Folder](Active-Directory-Runbook-Images/image9.png)
-
-Enter account details and a password.  
-![Step 2 - Account Details](Active-Directory-Runbook-Images/image10.png)
-
-Click “Finish”.  
-![Step 2 - Finish](Active-Directory-Runbook-Images/image11.png)
+![Step](Active-Directory-Runbook-Images/image6.png)  
+![Step](Active-Directory-Runbook-Images/image7.png)  
+![Step](Active-Directory-Runbook-Images/image8.png)  
+![Step](Active-Directory-Runbook-Images/image9.png)  
+![Step](Active-Directory-Runbook-Images/image10.png)  
+![Step](Active-Directory-Runbook-Images/image11.png)
 
 ---
 
-### Create a Group for the Department
-Open `Computer Management > Local Users and Groups > Groups`.  
-![Step 3 - Local Users and Groups](Active-Directory-Runbook-Images/image12.png)
+### Step 3: Create a Security Group
+In Computer Management, expand Local Users and Groups > Groups. Right-click Groups and select New Group. Name the group (e.g., HR), then add the new user to the group.
 
-Right-click to create a new group named `HR`.  
-![Step 3 - New Group](Active-Directory-Runbook-Images/image13.png)
-
-Set the group name and confirm.  
-![Step 3 - Group Name](Active-Directory-Runbook-Images/image14.png)
-
-Open the group and add the new user.  
-![Step 3 - Group Properties](Active-Directory-Runbook-Images/image15.png)  
-![Step 3 - Add User](Active-Directory-Runbook-Images/image16.png)  
-![Step 3 - Confirm Add](Active-Directory-Runbook-Images/image17.png)
+![Step](Active-Directory-Runbook-Images/image12.png)  
+![Step](Active-Directory-Runbook-Images/image13.png)  
+![Step](Active-Directory-Runbook-Images/image14.png)  
+![Step](Active-Directory-Runbook-Images/image15.png)
 
 ---
 
-### Create a Department Share
-Open File Explorer and navigate to a suitable location.  
-![Step 4 - Explorer](Active-Directory-Runbook-Images/image18.png)  
-![Step 4 - Location](Active-Directory-Runbook-Images/image19.png)
+### Step 4: Create a Network Share
+On the file server, create a new folder. Right-click it > Properties > Sharing > Advanced Sharing. Share the folder and grant permissions to the HR group. Confirm sharing is active by creating a file inside.
 
-Right-click the folder > `Properties > Sharing > Advanced Sharing`.  
-![Step 4 - Properties](Active-Directory-Runbook-Images/image20.png)  
-![Step 4 - Sharing Tab](Active-Directory-Runbook-Images/image21.png)
-
-Assign the share name and permissions.  
-![Step 4 - Share Name](Active-Directory-Runbook-Images/image22.png)  
-![Step 4 - Permissions](Active-Directory-Runbook-Images/image23.png)  
-![Step 4 - Share Created](Active-Directory-Runbook-Images/image24.png)
-
-Create `test.txt` inside the share.  
-![Step 4 - Test File](Active-Directory-Runbook-Images/image25.png)
+![Step](Active-Directory-Runbook-Images/image16.png)  
+![Step](Active-Directory-Runbook-Images/image17.png)  
+![Step](Active-Directory-Runbook-Images/image18.png)  
+![Step](Active-Directory-Runbook-Images/image19.png)  
+![Step](Active-Directory-Runbook-Images/image20.png)  
+![Step](Active-Directory-Runbook-Images/image21.png)
 
 ---
 
-### Create an Organizational Unit (OU)
-Open ADUC.  
-![Step 5 - ADUC](Active-Directory-Runbook-Images/image26.png)
+### Step 5: Create an OU and Move Objects
+Back in ADUC, create an Organizational Unit (OU) under the domain root. Move the user and group objects into this OU. This will help with group policy targeting.
 
-Right-click the domain > `New > Organizational Unit`.  
-![Step 5 - New OU](Active-Directory-Runbook-Images/image27.png)  
-![Step 5 - OU Name](Active-Directory-Runbook-Images/image28.png)
-
-Move user, group, and computer objects into the OU.  
-![Step 5 - Move Objects](Active-Directory-Runbook-Images/image29.png)
-
-Create or link a GPO to the OU.  
-![Step 5 - GPO Settings](Active-Directory-Runbook-Images/image30.png)  
-![Step 5 - Link GPO](Active-Directory-Runbook-Images/image31.png)  
-![Step 5 - Confirm GPO](Active-Directory-Runbook-Images/image32.png)
+![Step](Active-Directory-Runbook-Images/image22.png)  
+![Step](Active-Directory-Runbook-Images/image23.png)  
+![Step](Active-Directory-Runbook-Images/image24.png)  
+![Step](Active-Directory-Runbook-Images/image25.png)
 
 ---
 
-### Apply Group Policy Configuration
-#### Display a Startup Message
-Open GPMC.  
-![Step 6 - Open GPMC](Active-Directory-Runbook-Images/image33.png)
+### Step 6: Apply GPO Settings to the OU
+Open Group Policy Management. Create and link a new GPO to the HR OU.
 
-Navigate to `Computer Configuration > Windows Settings > Security Options`.  
-![Step 6 - Security Options](Active-Directory-Runbook-Images/image34.png)
+#### Set a Startup Message
+Edit the GPO > Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options. Modify the login message fields.
 
-Enable UAC.  
-![Step 6 - UAC Enabled](Active-Directory-Runbook-Images/image35.png)  
-![Step 6 - Apply GPO](Active-Directory-Runbook-Images/image36.png)
+![Step](Active-Directory-Runbook-Images/image26.png)  
+![Step](Active-Directory-Runbook-Images/image27.png)  
+![Step](Active-Directory-Runbook-Images/image28.png)
 
-#### Restrict CMD
-Go to `User Configuration > Administrative Templates > System`.  
-![Step 6 - Admin Templates](Active-Directory-Runbook-Images/image37.png)  
-![Step 6 - Block CMD](Active-Directory-Runbook-Images/image38.png)
+#### Disable Command Prompt
+Navigate to: User Configuration > Admin Templates > System > Prevent access to command prompt. Enable the policy.
 
-#### Add Logon Script
-Navigate to `User Configuration > Scripts (Logon/Logoff)` > `Logon`.  
-![Step 6 - Logon Script](Active-Directory-Runbook-Images/image39.png)
+![Step](Active-Directory-Runbook-Images/image29.png)  
+![Step](Active-Directory-Runbook-Images/image30.png)
 
-Click `Show Files`, add `.bat` file.  
-![Step 6 - Script Folder](Active-Directory-Runbook-Images/image40.png)
+#### Add a Logon Script
+Under User Configuration > Windows Settings > Scripts (Logon/Logoff), add a `.bat` file to map the HR share.
 
-Click `Add` and choose script.  
-![Step 6 - Add Script](Active-Directory-Runbook-Images/image41.png)
+![Step](Active-Directory-Runbook-Images/image31.png)  
+![Step](Active-Directory-Runbook-Images/image32.png)  
+![Step](Active-Directory-Runbook-Images/image33.png)
 
-#### Disable the Run Menu
-Go to `User Configuration > Administrative Templates > Start Menu and Taskbar`.  
-![Step 6 - Start Menu Settings](Active-Directory-Runbook-Images/image42.png)  
-![Step 6 - Remove Run](Active-Directory-Runbook-Images/image43.png)
+#### Remove the Run Menu
+Under User Configuration > Admin Templates > Start Menu and Taskbar > Remove Run menu. Enable this policy.
+
+![Step](Active-Directory-Runbook-Images/image34.png)  
+![Step](Active-Directory-Runbook-Images/image35.png)
 
 ---
 
-### Check Login History
-Open Event Viewer > `Windows Logs > Security`.  
-![Step 7 - Event Viewer](Active-Directory-Runbook-Images/image44.png)  
-![Step 7 - Successful Login](Active-Directory-Runbook-Images/image45.png)
+### Step 7: Review Login Events
+Open Event Viewer > Windows Logs > Security. Filter for Event ID 4624 (successful logon). Look for the new user’s logins.
+
+![Step](Active-Directory-Runbook-Images/image36.png)  
+![Step](Active-Directory-Runbook-Images/image37.png)
 
 ---
 
-### Check Latest Installed Program
+### Step 8: Use PowerShell to Check Software Installations
 ```powershell
 Get-WmiObject -Class Win32_Product |
   Sort-Object InstallDate -Descending |
   Select-Object Name, Version, InstallDate -First 1
 ```
-![Step 8 - Installed Program](Active-Directory-Runbook-Images/image46.png)
+![Step](Active-Directory-Runbook-Images/image38.png)
 
 ---
 
-### List Running Services
+### Step 9: List Running Services with PowerShell
 ```powershell
 Get-Service |
   Where-Object {$_.Status -eq "Running"} |
   Out-File "running_services.txt"
 ```
-![Step 9 - Running Services](Active-Directory-Runbook-Images/image47.png)
+![Step](Active-Directory-Runbook-Images/image39.png)
+
+---
+
+### Step 10: Map the HR Share via GPO Script
+Return to the logon script section in GPO. Use the Show Files button to open the script folder. Place your `.bat` file inside and configure it to run at user logon.
+
+![Step](Active-Directory-Runbook-Images/image40.png)  
+![Step](Active-Directory-Runbook-Images/image41.png)  
+![Step](Active-Directory-Runbook-Images/image42.png)  
+![Step](Active-Directory-Runbook-Images/image43.png)  
+![Step](Active-Directory-Runbook-Images/image44.png)  
+![Step](Active-Directory-Runbook-Images/image45.png)  
+![Step](Active-Directory-Runbook-Images/image46.png)
+
+---
+
+### Step 11: Disable Run Menu via Policy
+Navigate to the Run command removal setting and enforce the GPO.
+
+![Step](Active-Directory-Runbook-Images/image47.png)  
+![Step](Active-Directory-Runbook-Images/image48.png)  
+![Step](Active-Directory-Runbook-Images/image49.png)  
+![Step](Active-Directory-Runbook-Images/image50.png)
+
+---
+
+### Step 12: Final GPO and OU Verification
+Verify that the policies are applying properly and the OU structure is correct.
+
+![Step](Active-Directory-Runbook-Images/image51.png)  
+![Step](Active-Directory-Runbook-Images/image52.png)
+
+---
+
+### Step 13: Additional Screens and Validation Logs
+This section includes extra screenshots verifying results, testing configuration, and demonstrating expected output.
+
+![Step](Active-Directory-Runbook-Images/image53.png)
+![Step](Active-Directory-Runbook-Images/image54.png)
+![Step](Active-Directory-Runbook-Images/image55.png)
+![Step](Active-Directory-Runbook-Images/image56.png)
+![Step](Active-Directory-Runbook-Images/image57.png)
+![Step](Active-Directory-Runbook-Images/image58.png)
+![Step](Active-Directory-Runbook-Images/image59.png)
+![Step](Active-Directory-Runbook-Images/image60.png)
+![Step](Active-Directory-Runbook-Images/image61.png)
+![Step](Active-Directory-Runbook-Images/image62.png)
 
 ---
 
