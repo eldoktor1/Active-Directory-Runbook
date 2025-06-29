@@ -33,40 +33,42 @@ Enter domain credentials when prompted.
 ---
 
 ### Step 2: Create a New User in Active Directory
-Log in to the domain controller or management workstation.
+Log in to the domain controller or a computer with administrative tools.
 
 Open the **Active Directory Users and Computers** console.  
-![Step](Active-Directory-Runbook-Images/image6.png)
+![Search and Launch ADUC](Active-Directory-Runbook-Images/image6.png)
 
-In the left pane, expand your domain (e.g., `contoso.com`) and click on the **Users** folder.  
-![Step](Active-Directory-Runbook-Images/image7.png)
+Expand your domain (e.g., `contoso.com`) and navigate to the **Users** container.  
+![Select Domain in ADUC](Active-Directory-Runbook-Images/image7.png)
 
-Right-click the **Users** folder and choose **New > User**.  
-![Step](Active-Directory-Runbook-Images/image8.png)
+Right-click the **Users** container and choose **New > User**.  
+![New User Wizard Start](Active-Directory-Runbook-Images/image8.png)
 
-Enter the user’s first name, last name, and a unique username (e.g., tflenderson).  
-![Step](Active-Directory-Runbook-Images/image9.png)
+Enter the user's first name, last name, and user logon name (e.g., tflenderson).  
+![Fill in User Info](Active-Directory-Runbook-Images/image9.png)
 
-Set an initial password and configure password policies such as requiring change on next login.  
-![Step](Active-Directory-Runbook-Images/image10.png)
+Set an initial password and configure appropriate password options.  
+![Set Password and Policies](Active-Directory-Runbook-Images/image10.png)
 
-Click **Finish** to create the account.  
-![Step](Active-Directory-Runbook-Images/image11.png)
+Click **Finish** to complete user creation.  
+![Finish User Wizard](Active-Directory-Runbook-Images/image11.png)
 
 ---
 
 ### Step 3: Create a Security Group
+If creating a local security group on a file server or workstation:
+
 Open the **Computer Management** console.  
-![Step](Active-Directory-Runbook-Images/image12.png)
+![Open Computer Management](Active-Directory-Runbook-Images/image12.png)
 
 Expand **System Tools > Local Users and Groups > Groups**.  
-![Step](Active-Directory-Runbook-Images/image13.png)
+![Expand Local Groups](Active-Directory-Runbook-Images/image13.png)
 
-Right-click **Groups** and choose **New Group**.  
-![Step](Active-Directory-Runbook-Images/image14.png)
+Right-click **Groups** and select **New Group**.  
+![New Group Dialog](Active-Directory-Runbook-Images/image14.png)
 
-Enter a group name (e.g., `HR`), and add the new user created in Step 2 by clicking **Add...**  
-![Step](Active-Directory-Runbook-Images/image15.png)
+Enter the group name (e.g., `HR`) and click **Add...** to include members.  
+![Add User to Group](Active-Directory-Runbook-Images/image15.png)
 
 ---
 
@@ -183,27 +185,29 @@ Get-Service |
 ### Step 10: Map the HR Share via GPO Script
 To automatically map the HR share for users when they log in, configure a logon script through Group Policy.
 
-1. Open Group Policy Management Editor.
-2. Navigate to: **User Configuration > Windows Settings > Scripts (Logon/Logoff)**.  
-![Step](Active-Directory-Runbook-Images/image40.png)
+1. Open Group Policy Management Editor.  
+![Open GPMC Editor](Active-Directory-Runbook-Images/image40.png)
+
+2. Navigate to **User Configuration > Windows Settings > Scripts (Logon/Logoff)**.  
+![Navigate to Logon Scripts](Active-Directory-Runbook-Images/image41.png)
 
 3. Double-click **Logon**, then click **Add**.  
-![Step](Active-Directory-Runbook-Images/image41.png)
+![Click Add Logon Script](Active-Directory-Runbook-Images/image42.png)
 
-4. Click **Browse...** and copy your `.bat` script that maps the share (e.g., `net use H: \servername\HR`).  
-![Step](Active-Directory-Runbook-Images/image42.png)
+4. Click **Browse...**, copy your `.bat` file to the window, and select it. The script should include something like:  
+```bat
+net use H: \servername\HR
+```
+![Browse to Script File](Active-Directory-Runbook-Images/image43.png)
 
-5. Select the script and click **OK**.  
-![Step](Active-Directory-Runbook-Images/image43.png)
+5. Confirm that the script is listed and click **OK**.  
+![Script Added Confirmation](Active-Directory-Runbook-Images/image44.png)
 
-6. Confirm the script is listed and click **Apply** to save.  
-![Step](Active-Directory-Runbook-Images/image44.png)
+6. Click **Apply**, then close the dialog.  
+![Apply Script Settings](Active-Directory-Runbook-Images/image45.png)
 
-7. Close the dialog and return to Group Policy Management.  
-![Step](Active-Directory-Runbook-Images/image45.png)
-
-8. The mapped drive will be created for the user at next login.  
-![Step](Active-Directory-Runbook-Images/image46.png))
+7. At next login, the HR share will be mapped automatically for users.  
+![Login Mapping Result](Active-Directory-Runbook-Images/image46.png)
 
 ---
 
@@ -237,34 +241,34 @@ Review the overall GPO configuration and ensure policies are linked to the corre
 ---
 
 ### Step 13: Additional Screens and Validation Logs
-These screenshots provide final confirmation of task execution and expected outcomes.
+These screenshots provide final confirmation of task execution and validation of results.
 
-GPO link confirmation:  
-![Step](Active-Directory-Runbook-Images/image53.png)
+**GPO link confirmation in Group Policy Management Console:**  
+![GPO Link Confirmed](Active-Directory-Runbook-Images/image53.png)
 
-Logon script execution success:  
-![Step](Active-Directory-Runbook-Images/image54.png)
+**Logon script triggered for user login (message or popup):**  
+![Logon Script Triggered](Active-Directory-Runbook-Images/image54.png)
 
-Policy application results:  
-![Step](Active-Directory-Runbook-Images/image55.png)
+**Result of policy applying to target user (gpresult or similar):**  
+![GPResult for User](Active-Directory-Runbook-Images/image55.png)
 
-Folder mapping on login:  
-![Step](Active-Directory-Runbook-Images/image56.png)
+**HR share mapped to drive H: on login:**  
+![Mapped Drive Visible](Active-Directory-Runbook-Images/image56.png)
 
-OU structure accuracy:  
-![Step](Active-Directory-Runbook-Images/image57.png)
+**OU structure with user and group placement validated:**  
+![OU Structure Verified](Active-Directory-Runbook-Images/image57.png)
 
-Successful login timestamps:  
-![Step](Active-Directory-Runbook-Images/image58.png)
+**Event Viewer showing Event ID 4624 (successful login):**  
+![Login Log in Event Viewer](Active-Directory-Runbook-Images/image58.png)
 
-Service monitoring output - part 1:  
-![Step](Active-Directory-Runbook-Images/image59.png)
+**List of active services from PowerShell - page 1:**  
+![Running Services Page 1](Active-Directory-Runbook-Images/image59.png)
 
-Service monitoring output - part 2:  
-![Step](Active-Directory-Runbook-Images/image60.png)
+**List of active services from PowerShell - page 2:**  
+![Running Services Page 2](Active-Directory-Runbook-Images/image60.png)
 
-Final script execution:  
-![Step](Active-Directory-Runbook-Images/image61.png)
+**Logon script result displayed via console (manual test):**  
+![Manual Logon Script Execution](Active-Directory-Runbook-Images/image61.png)
 
-Overall configuration summary:  
-![Step](Active-Directory-Runbook-Images/image62.png)
+**Final check: all policies and configuration applied:**  
+![Final System Check](Active-Directory-Runbook-Images/image62.png))
