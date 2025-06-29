@@ -21,7 +21,8 @@ This step involves joining a computer to the “contoso.com” domain using the 
 6. Provide the administrator credentials for the domain when prompted.
 7. Restart the computer for the changes to take effect.
 
-![Step 1](Active-Directory-Runbook-Images/image62.png)
+![Step 1a](Active-Directory-Runbook-Images/image1.png)  
+![Step 1b](Active-Directory-Runbook-Images/image2.png)
 
 ---
 
@@ -36,7 +37,10 @@ Switching to the server, a new user account is created for the new hire, and a p
 6. Enter the necessary details for the new hire’s user account, including username and password.
 7. Click `Finish` to create the user account.
 
-![Step 2](Active-Directory-Runbook-Images/image37.png)
+![Step 2a](Active-Directory-Runbook-Images/image10.png)  
+![Step 2b](Active-Directory-Runbook-Images/image11.png)  
+![Step 2c](Active-Directory-Runbook-Images/image12.png)  
+![Step 2d](Active-Directory-Runbook-Images/image13.png)
 
 ---
 
@@ -50,7 +54,9 @@ A group is created with the name of the department, allowing for better organiza
 5. Click on the `Add` button and enter the username of the new hire.
 6. Click `OK` to add the user to the group.
 
-![Step 3](Active-Directory-Runbook-Images/image29.png)
+![Step 3a](Active-Directory-Runbook-Images/image14.png)  
+![Step 3b](Active-Directory-Runbook-Images/image15.png)  
+![Step 3c](Active-Directory-Runbook-Images/image16.png)
 
 ---
 
@@ -66,13 +72,13 @@ A share is created on the server, named after the department, and limited to use
 7. Click `OK` to create the share.
 8. Open the newly created share and create a text document called `test.txt`
 
-![Step 4a](Active-Directory-Runbook-Images/image54.png)
-![Step 4b](Active-Directory-Runbook-Images/image45.png)
+![Step 4a](Active-Directory-Runbook-Images/image17.png)  
+![Step 4b](Active-Directory-Runbook-Images/image18.png)  
+![Step 4c](Active-Directory-Runbook-Images/image19.png)
 
 ---
 
 ## 🗂️ Step 5: Create an OU with the Department Name
-An Organizational Unit (OU) is created, named after the department, to organize and manage the user, group, and computer objects.
 
 1. Open the `Active Directory Users and Computers` console on the server machine.
 2. Right-click on the domain name and select `New > Organizational Unit`.
@@ -82,11 +88,13 @@ An Organizational Unit (OU) is created, named after the department, to organize 
 6. Right-click on the OU and select `Link an Existing GPO`.
 7. Choose the appropriate GPO and click `OK` to link it to the OU.
 
-![Step 5](Active-Directory-Runbook-Images/image46.png)
+![Step 5a](Active-Directory-Runbook-Images/image20.png)  
+![Step 5b](Active-Directory-Runbook-Images/image21.png)
 
 ---
 
 ## 🛡️ Step 6: Edit the GPO and Apply Specific Rules
+
 ### A. Display a Startup Message
 1. Open the Group Policy Management Console (GPMC).
 2. Create or select a GPO.
@@ -96,13 +104,13 @@ An Organizational Unit (OU) is created, named after the department, to organize 
 6. Set the policy to `Enabled`.
 7. Apply the GPO to the relevant OU.
 
-![Step 6A](Active-Directory-Runbook-Images/image28.png)
+![Step 6A](Active-Directory-Runbook-Images/image22.png)
 
 ### B. Restrict Access to Command Prompt
 1. Navigate to `User Configuration > Policies > Administrative Templates > System`.
 2. Enable the `Prevent access to the command prompt` policy.
 
-![Step 6B](Active-Directory-Runbook-Images/image8.png)
+![Step 6B](Active-Directory-Runbook-Images/image23.png)
 
 ### C. Add a Logon Script
 1. Navigate to `User Configuration > Policies > Windows Settings > Scripts (Logon/Logoff)`.
@@ -110,20 +118,21 @@ An Organizational Unit (OU) is created, named after the department, to organize 
 3. Click `Show Files` and add your `.bat` script.
 4. Click `Add` and select the script.
 
-![Step 6C](Active-Directory-Runbook-Images/image11.png)
+![Step 6C](Active-Directory-Runbook-Images/image24.png)  
+![Step 6C2](Active-Directory-Runbook-Images/image25.png)
 
 ### D. Disable the Run Command
 1. Navigate to `User Configuration > Policies > Administrative Templates > Start Menu and Taskbar`.
 2. Enable `Remove Run menu from Start Menu`.
 
-![Step 6D](Active-Directory-Runbook-Images/image55.png)
+![Step 6D](Active-Directory-Runbook-Images/image26.png)
 
 ---
 
 ## 📊 Step 7: Check the Event Viewer for Last Login
 Using the domain administrator account, open the Event Viewer on the server machine to determine the timestamp of the last successful login by the specified user.
 
-![Step 7](Active-Directory-Runbook-Images/image47.png)
+![Step 7](Active-Directory-Runbook-Images/image27.png)
 
 ---
 
@@ -134,7 +143,7 @@ Get-WmiObject -Class Win32_Product |
   Select-Object Name, Version, InstallDate -First 1
 ```
 
-![Step 8](Active-Directory-Runbook-Images/image20.png)
+![Step 8](Active-Directory-Runbook-Images/image28.png)
 
 ---
 
@@ -145,7 +154,7 @@ Get-Service |
   Out-File "running_services.txt"
 ```
 
-![Step 9](Active-Directory-Runbook-Images/image21.png)
+![Step 9](Active-Directory-Runbook-Images/image29.png)
 
 ---
 
