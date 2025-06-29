@@ -30,6 +30,8 @@ Select "Domain" and enter `contoso.com`.
 Enter domain credentials when prompted.  
 ![Step](Active-Directory-Runbook-Images/image5.png)
 
+Once successfully joined, you will be prompted to restart the system to apply changes. Restart the computer to complete the process.
+
 ---
 
 ### Step 2: Create a New User in Active Directory
@@ -53,22 +55,26 @@ Set an initial password and configure appropriate password options.
 Click **Finish** to complete user creation.  
 ![Finish User Wizard](Active-Directory-Runbook-Images/image11.png)
 
+You should now see the newly created user listed in the **Users** container.
+
 ---
 
 ### Step 3: Create a Security Group
-If creating a local security group on a file server or workstation:
+To manage permissions using security groups, create a new group in Active Directory.
 
-Open the **Computer Management** console.  
-![Open Computer Management](Active-Directory-Runbook-Images/image12.png)
+Open the **Active Directory Users and Computers** console.  
+![Open ADUC](Active-Directory-Runbook-Images/image12.png)
 
-Expand **System Tools > Local Users and Groups > Groups**.  
-![Expand Local Groups](Active-Directory-Runbook-Images/image13.png)
+Navigate to the **Users** container under your domain.  
+![Navigate to Users Container](Active-Directory-Runbook-Images/image13.png)
 
-Right-click **Groups** and select **New Group**.  
-![New Group Dialog](Active-Directory-Runbook-Images/image14.png)
+Right-click **Users**, choose **New > Group**.  
+![Create New Group Dialog](Active-Directory-Runbook-Images/image14.png)
 
-Enter the group name (e.g., `HR`) and click **Add...** to include members.  
-![Add User to Group](Active-Directory-Runbook-Images/image15.png)
+Enter the group name (e.g., `HR`) and ensure the group scope is set to **Global**, and type is **Security**.  
+![Group Settings and Confirmation](Active-Directory-Runbook-Images/image15.png)
+
+Once created, double-click the new group, go to the **Members** tab, and click **Add** to include the user you created in Step 2.
 
 ---
 
@@ -241,34 +247,34 @@ Review the overall GPO configuration and ensure policies are linked to the corre
 ---
 
 ### Step 13: Additional Screens and Validation Logs
-These screenshots provide final confirmation of task execution and validation of results.
+These screenshots validate earlier configuration steps:
 
-**GPO link confirmation in Group Policy Management Console:**  
+**GPO link confirmation (Step 6):**  
 ![GPO Link Confirmed](Active-Directory-Runbook-Images/image53.png)
 
-**Logon script triggered for user login (message or popup):**  
+**Logon script trigger at login (Step 10):**  
 ![Logon Script Triggered](Active-Directory-Runbook-Images/image54.png)
 
-**Result of policy applying to target user (gpresult or similar):**  
+**Policy result for user (Step 6):**  
 ![GPResult for User](Active-Directory-Runbook-Images/image55.png)
 
-**HR share mapped to drive H: on login:**  
+**HR share mapped on login (Step 10):**  
 ![Mapped Drive Visible](Active-Directory-Runbook-Images/image56.png)
 
-**OU structure with user and group placement validated:**  
+**OU and group structure validation (Step 5):**  
 ![OU Structure Verified](Active-Directory-Runbook-Images/image57.png)
 
-**Event Viewer showing Event ID 4624 (successful login):**  
+**Successful login event (Step 7):**  
 ![Login Log in Event Viewer](Active-Directory-Runbook-Images/image58.png)
 
-**List of active services from PowerShell - page 1:**  
+**Running services check - part 1 (Step 9):**  
 ![Running Services Page 1](Active-Directory-Runbook-Images/image59.png)
 
-**List of active services from PowerShell - page 2:**  
+**Running services check - part 2 (Step 9):**  
 ![Running Services Page 2](Active-Directory-Runbook-Images/image60.png)
 
-**Logon script result displayed via console (manual test):**  
+**Manual logon script verification (Step 10):**  
 ![Manual Logon Script Execution](Active-Directory-Runbook-Images/image61.png)
 
-**Final check: all policies and configuration applied:**  
-![Final System Check](Active-Directory-Runbook-Images/image62.png))
+**Final configuration summary (Step 12):**  
+![Final System Check](Active-Directory-Runbook-Images/image62.png)
