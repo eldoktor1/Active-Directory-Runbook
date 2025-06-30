@@ -1,196 +1,184 @@
-**Name of new hire:** Toby Flenderson  
-**Role at StackFull Software:** Social Media Associate  
-**Department:** HR
+
+# Active Directory Runbook
+
+**New Hire:** Toby Flenderson  
+**Role:** Social Media Associate  
+**Department:** HR  
+**Company:** StackFull Software
+
+This runbook outlines the process of onboarding a new employee by configuring Active Directory (AD) settings, creating user and group objects, managing file shares, applying Group Policy Objects (GPOs), and auditing system activities. It is designed for IT admins managing a domain environment.
 
 ---
 
-1. Log in to the computer using the username “administrator” and the password “Pa$$w0rd”.
+## Step 1: Join the Computer to the Domain
 
-![image1](Active-Directory-Runbook-Images/image1.png)
+Join the computer to the `contoso.com` domain using administrator credentials.
 
-2. Open the Control Panel and navigate to System and Security > System.
+1. Log in using `administrator / Pa$$w0rd`.
+2. Open **Control Panel > System and Security > System**.
+3. Click on **Change settings** next to the computer name.
+4. In **System Properties**, click **Change**.
+5. Select **Domain**, enter `contoso.com`, and click **OK**.
+6. Enter domain admin credentials when prompted.
+7. Restart the computer.
 
-![image2](Active-Directory-Runbook-Images/image2.png)
+![Step 1](Active-Directory-Runbook-Images/image1.png)
+![Step 2](Active-Directory-Runbook-Images/image2.png)
+![Step 3](Active-Directory-Runbook-Images/image3.png)
+![Step 4](Active-Directory-Runbook-Images/image4.png)
+![Step 5](Active-Directory-Runbook-Images/image5.png)
+![Step 6](Active-Directory-Runbook-Images/image6.png)
 
-3. Click on “Change settings” next to the computer name.
+---
 
-![image3](Active-Directory-Runbook-Images/image3.png)
+## Step 2: Create a User for the New Hire
 
-4. In the System Properties window, click on the “Change” button.
+Switch to the server and create a user account for Toby Flenderson.
 
-![image4](Active-Directory-Runbook-Images/image4.png)
+1. Log in as domain admin.
+2. Open **Active Directory Users and Computers**.
+3. Navigate to `contoso.com > Users`.
+4. Right-click > **New > User** and input user details.
+5. Set a secure password and click **Finish**.
 
-5. Select the “Domain” option, enter “contoso.com” as the domain name, and click “OK”.
+![Step 7](Active-Directory-Runbook-Images/image7.png)
+![Step 8](Active-Directory-Runbook-Images/image8.png)
+![Step 9](Active-Directory-Runbook-Images/image9.png)
 
-![image5](Active-Directory-Runbook-Images/image5.png)
+---
 
-6. Restart the computer for the changes to take effect.
+## Step 3: Create a Group with the Department Name
 
-7. On the server, log in with an account that has administrative privileges.
+1. Open **Computer Management** > **Local Users and Groups > Groups**.
+2. Right-click and choose **New Group**.
+3. Name the group (e.g., `HR`) and create it.
+4. Double-click the group and add Toby as a member.
 
-8. Open Active Directory Users and Computers.
+![Step 10](Active-Directory-Runbook-Images/image10.png)
+![Step 11](Active-Directory-Runbook-Images/image11.png)
+![Step 12](Active-Directory-Runbook-Images/image12.png)
 
-![image6](Active-Directory-Runbook-Images/image6.png)
+---
 
-9. In the left pane, click on the “Users” container.
+## Step 4: Create a Department Share
 
-![image7](Active-Directory-Runbook-Images/image7.png)
+1. On the server, open **File Explorer** and create a folder (e.g., `\Server\HR`).
+2. Right-click > **Properties > Sharing** tab > **Share**.
+3. Set share name and configure **permissions** for the HR group.
+4. Allow read/write access.
+5. Inside the share, create a text file called `test.txt`.
 
-10. Right-click on the Users container and select “New” > “User”.
+![Step 13](Active-Directory-Runbook-Images/image13.png)
+![Step 14](Active-Directory-Runbook-Images/image14.png)
+![Step 15](Active-Directory-Runbook-Images/image15.png)
+![Step 16](Active-Directory-Runbook-Images/image16.png)
+![Step 17](Active-Directory-Runbook-Images/image17.png)
 
-![image8](Active-Directory-Runbook-Images/image8.png)
+---
 
-11. Enter the first name, last name, and full name of the new hire (Toby Flenderson). Enter the user logon name “tflenderson”.
+## Step 5: Create an Organizational Unit (OU)
 
-![image9](Active-Directory-Runbook-Images/image9.png)
+1. In **Active Directory Users and Computers**, right-click the domain > **New > Organizational Unit**.
+2. Name it `HR`.
+3. Move the relevant user, group, and computer objects into this OU.
 
-12. Set the password to “Pa$$w0rd”. Uncheck “User must change password at next logon”. Click Next and then Finish.
+![Step 18](Active-Directory-Runbook-Images/image18.png)
+![Step 19](Active-Directory-Runbook-Images/image19.png)
+![Step 20](Active-Directory-Runbook-Images/image20.png)
+![Step 21](Active-Directory-Runbook-Images/image21.png)
 
-![image10](Active-Directory-Runbook-Images/image10.png)
+---
 
-13. Confirm that the user has been created.
+## Step 6: Link and Edit Group Policy Object (GPO)
 
-![image11](Active-Directory-Runbook-Images/image11.png)
+### a. Link an Existing GPO
 
-14. Open the Computer Management console on the file server.
+1. Right-click the `HR` OU > **Link an Existing GPO**.
+2. Select the appropriate policy and click **OK**.
 
-![image12](Active-Directory-Runbook-Images/image12.png)
+![Step 22](Active-Directory-Runbook-Images/image22.png)
+![Step 23](Active-Directory-Runbook-Images/image23.png)
 
-15. In the left pane, expand “System Tools” > “Local Users and Groups” > “Groups”.
+---
 
-![image13](Active-Directory-Runbook-Images/image13.png)
+### b. Display a Startup Message
 
-16. Right-click on “Groups” and select “New Group”.
+1. Open **Group Policy Management Editor**.
+2. Go to: `Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options`.
+3. Enable **"User Account Control: Run all administrators in Admin Approval Mode"**.
 
-![image14](Active-Directory-Runbook-Images/image14.png)
+![Step 24](Active-Directory-Runbook-Images/image24.png)
+![Step 25](Active-Directory-Runbook-Images/image25.png)
+![Step 26](Active-Directory-Runbook-Images/image26.png)
 
-17. In the New Group dialog box, enter the group name “HR”. Click “Add…” and add “tflenderson” to the group. Click “Create” and then “Close”.
+---
 
-![image15](Active-Directory-Runbook-Images/image15.png)
+### c. Disable Command Prompt Access
 
-18. Create a new folder on the file server and name it “HR_Share”.
+1. Navigate to `User Configuration > Policies > Administrative Templates > System`.
+2. Enable **"Prevent access to the command prompt"**.
 
-![image16](Active-Directory-Runbook-Images/image16.png)
+![Step 27](Active-Directory-Runbook-Images/image27.png)
+![Step 28](Active-Directory-Runbook-Images/image28.png)
+![Step 29](Active-Directory-Runbook-Images/image29.png)
 
-19. Right-click on the folder and select “Properties”.
+---
 
-![image17](Active-Directory-Runbook-Images/image17.png)
+### d. Add a Login Script to Map the Share
 
-20. Navigate to the “Sharing” tab and click on “Share”.
+1. Go to: `User Configuration > Policies > Windows Settings > Scripts (Logon/Logoff)`.
+2. Open **Logon**, click **Show Files**, and place your `.bat` script.
+3. Click **Add** and select the login script.
 
-![image18](Active-Directory-Runbook-Images/image18.png)
+![Step 30](Active-Directory-Runbook-Images/image30.png)
+![Step 31](Active-Directory-Runbook-Images/image31.png)
+![Step 32](Active-Directory-Runbook-Images/image32.png)
+![Step 33](Active-Directory-Runbook-Images/image33.png)
 
-21. In the “Network access” dialog, select “HR” from the drop-down list and click “Add”.
+---
 
-![image19](Active-Directory-Runbook-Images/image19.png)
+### e. Disable "Run" from Start Menu
 
-22. Set the Permission Level for “HR” to “Read/Write” and click “Share”.
+1. Navigate to: `User Configuration > Policies > Administrative Templates > Start Menu and Taskbar`.
+2. Enable **"Remove Run menu from Start Menu"**.
 
-![image20](Active-Directory-Runbook-Images/image20.png)
+![Step 34](Active-Directory-Runbook-Images/image34.png)
+![Step 35](Active-Directory-Runbook-Images/image35.png)
 
-23. Go to the “Security” tab, click “Edit”, remove “Everyone”, and add “HR” with Full Control.
+---
 
-![image21](Active-Directory-Runbook-Images/image21.png)
+## Step 7: Check Event Viewer for Last Login
 
-24. In Active Directory Users and Computers, right-click on the domain and choose “New” > “Organizational Unit”.
+Use Event Viewer on the domain server to check the last successful login for the new hire.
 
-![image22](Active-Directory-Runbook-Images/image22.png)
+![Step 36](Active-Directory-Runbook-Images/image36.png)
 
-25. Name the OU “HR”.
+---
 
-![image23](Active-Directory-Runbook-Images/image23.png)
+## Step 8: Use PowerShell to View the Latest Installed Program
 
-26. Move the “tflenderson” user and “HR” group into the “HR” OU.
+Use PowerShell to list the most recently installed software:
 
-![image24](Active-Directory-Runbook-Images/image24.png)
-
-![image25](Active-Directory-Runbook-Images/image25.png)
-
-27. Open Group Policy Management. Right-click the “HR” OU and choose “Create a GPO in this domain, and Link it here…”. Name it “HR_GPO”.
-
-![image26](Active-Directory-Runbook-Images/image26.png)
-
-28. Right-click on the newly created GPO and select “Edit”.
-
-![image27](Active-Directory-Runbook-Images/image27.png)
-
-29. In the Group Policy Management Editor, go to Computer Configuration > Policies > Windows Settings > Security Settings > Local Policies > Security Options. Enable the following policies:
-- “Interactive logon: Message title for users attempting to log on”
-- “Interactive logon: Message text for users attempting to log on”
-
-![image28](Active-Directory-Runbook-Images/image28.png)
-
-30. Navigate to User Configuration > Administrative Templates > System. Enable “Prevent access to the command prompt” and select “Yes” to disable script processing.
-
-![image29](Active-Directory-Runbook-Images/image29.png)
-
-![image30](Active-Directory-Runbook-Images/image30.png)
-
-31. Navigate to User Configuration > Windows Settings > Scripts (Logon/Logoff). Double-click “Logon”.
-
-![image31](Active-Directory-Runbook-Images/image31.png)
-
-32. Click “Add” and browse to the script location. The script should contain:
-```bat
-net use H: \\servername\HR
-```
-
-![image32](Active-Directory-Runbook-Images/image32.png)
-
-![image33](Active-Directory-Runbook-Images/image33.png)
-
-33. Navigate to User Configuration > Administrative Templates > Start Menu and Taskbar. Enable “Remove Run menu from Start Menu”.
-
-![image34](Active-Directory-Runbook-Images/image34.png)
-
-![image35](Active-Directory-Runbook-Images/image35.png)
-
-34. Open Event Viewer. Go to Windows Logs > Security. Filter the log by Event ID 4624 to confirm successful login.
-
-![image36](Active-Directory-Runbook-Images/image36.png)
-
-![image37](Active-Directory-Runbook-Images/image37.png)
-
-35. Open PowerShell and run the following to find the most recently installed program:
 ```powershell
-Get-WmiObject -Class Win32_Product |
-Sort-Object InstallDate -Descending |
-Select-Object Name, Version, InstallDate -First 1
+Get-WmiObject -Class Win32_Product | Sort-Object InstallDate -Descending | Select-Object Name, InstallDate -First 1
 ```
 
-![image38](Active-Directory-Runbook-Images/image38.png)
+![Step 37](Active-Directory-Runbook-Images/image37.png)
 
-36. Run the following command to save a list of running services:
+---
+
+## Step 9: Write a PowerShell Script to List Running Services
+
+Save the following PowerShell script as `running_services.ps1`:
+
 ```powershell
-Get-Service |
-Where-Object {$_.Status -eq "Running"} |
-Out-File "running_services.txt"
+Get-Service | Where-Object {$_.Status -eq 'Running'} | Out-File "C:\running_services.txt"
 ```
 
-![image39](Active-Directory-Runbook-Images/image39.png)
+![Step 38](Active-Directory-Runbook-Images/image38.png)
 
-37. Additional screenshots validating correct policy application and user access:
+---
 
-![image40](Active-Directory-Runbook-Images/image40.png)
-![image41](Active-Directory-Runbook-Images/image41.png)
-![image42](Active-Directory-Runbook-Images/image42.png)
-![image43](Active-Directory-Runbook-Images/image43.png)
-![image44](Active-Directory-Runbook-Images/image44.png)
-![image45](Active-Directory-Runbook-Images/image45.png)
-![image46](Active-Directory-Runbook-Images/image46.png)
-![image47](Active-Directory-Runbook-Images/image47.png)
-![image48](Active-Directory-Runbook-Images/image48.png)
-![image49](Active-Directory-Runbook-Images/image49.png)
-![image50](Active-Directory-Runbook-Images/image50.png)
-![image51](Active-Directory-Runbook-Images/image51.png)
-![image52](Active-Directory-Runbook-Images/image52.png)
-![image53](Active-Directory-Runbook-Images/image53.png)
-![image54](Active-Directory-Runbook-Images/image54.png)
-![image55](Active-Directory-Runbook-Images/image55.png)
-![image56](Active-Directory-Runbook-Images/image56.png)
-![image57](Active-Directory-Runbook-Images/image57.png)
-![image58](Active-Directory-Runbook-Images/image58.png)
-![image59](Active-Directory-Runbook-Images/image59.png)
-![image60](Active-Directory-Runbook-Images/image60.png)
-![image61](Active-Directory-Runbook-Images/image61.png)
-![image62](Active-Directory-Runbook-Images/image62.png)
+## Summary
+
+This runbook streamlines Active Directory onboarding and management tasks. By automating user/group provisioning, enforcing policies via GPOs, and auditing system activity with PowerShell, this workflow ensures a secure, organized, and scalable domain environment.
