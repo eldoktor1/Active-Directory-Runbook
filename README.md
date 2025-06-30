@@ -25,6 +25,8 @@ Restart the computer for the changes to take effect.
 ![Step 4](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image4.png?raw=true)
 ![Step 5](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image5.png?raw=true)
 ![Step 6](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image6.png?raw=true)
+![Step 7](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image7.png?raw=true)
+![Step 8](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image8.png?raw=true)
 
 ---
 
@@ -39,8 +41,7 @@ Go into the “Users” folder and create User for “Toby Flenderson”
 Enter the necessary details for the new hire’s user account, including username and password.
 Click “Finish” to create the user account.
 
-![Step 7](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image7.png?raw=true)
-![Step 8](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image8.png?raw=true)
+
 ![Step 9](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image9.png?raw=true)
 ![Step 10](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image10.png?raw=true)
 ![Step 11](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image11.png?raw=true)
