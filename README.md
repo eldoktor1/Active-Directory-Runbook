@@ -197,13 +197,13 @@ Using the domain administrator account, the Event Viewer on the server machine i
 ![Step 57](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image57.png?raw=true)
 ![Step 58](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image58.png?raw=true)
 ![Step 59](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image59.png?raw=true)
-![Step 60](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image60.png?raw=true)
 
 ---
 
 ## Step 8: Use PowerShell to check the latest installed program
 
 A PowerShell command is executed to retrieve information about the most recent program installation on the computer.
+![Step 60](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image60.png?raw=true)
 ![Step 61](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image61.png?raw=true)
 
 ---
@@ -213,6 +213,7 @@ A PowerShell command is executed to retrieve information about the most recent p
 A PowerShell script is created to gather a list of all running services on the computer, and the output is saved to a file named “running_services.txt”.
 By following these steps, the runbook aims to facilitate the setup and management of a domain environment, enforce security measures, monitor system activity, and streamline user and group management within the specified department.
 
+![Step 61](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image61.png?raw=true)
 ![Step 62](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image62.png?raw=true)
 ---
 
