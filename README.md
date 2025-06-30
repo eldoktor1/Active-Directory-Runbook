@@ -204,7 +204,7 @@ Using the domain administrator account, the Event Viewer on the server machine i
 
 A PowerShell command is executed to retrieve information about the most recent program installation on the computer.
 ![Step 60](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image60.png?raw=true)
-![Step 61](https://github.com/eldoktor1/Active-Directory-Runbook/blob/main/Active-Directory-Runbook-Images/image61.png?raw=true)
+
 
 ---
 
